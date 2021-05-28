@@ -22,7 +22,7 @@ class POSTController(http.Controller):
     def create_log(self, **kwargs):
         data = request.httprequest.data
         create_event_ihub(
-            summary=f"{data.decode('ascii')[:30]}",
+            summary=f"{data[:30]}",
             details=data,
         )
         return "OK"
