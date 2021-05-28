@@ -1,0 +1,102 @@
+<odoo>
+    <data>
+        <record id="integration_kanban_view" model="ir.ui.view">
+            <field name="name">ihub.integration.kanban.view</field>
+            <field name="model">ihub.integration</field>
+            <field name="arch" type="xml">
+                <kanban string="Integrations" create="false" default_group_by="status" group_create="false" group_delete="false" group_edit="false" archivable="false" records_draggable="false">
+                    <field name="status_name" invisible="True"/>
+                    <progressbar field="status_name" colors='{"Created": "muted", "Stopped": "muted", "Running": "success",  "Failed": "danger"}'/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_card oe_kanban_global_click">
+                                <strong><field name="name"/></strong>
+                                <div>
+                                    <field name="sub_is_job" invisible="True"/>
+                                    <span attrs="{'invisible': [['sub_is_job', '=', False]]}">
+                                        <label class="col-form-label" for="job_last_run">Last run: </label>
+                                        <field attrs="{'invisible': [['job_last_run', '=', False]]}" name="job_last_run"/>
+                                        <span attrs="{'invisible': [['job_last_run', '!=', False]]}">
+                                            never
+                                        </span>
+                                    </span>
+                                    <span attrs="{'invisible': [['sub_is_job', '=', True]]}">
+<!--                                        Empty label so every kanban card is the same size. -->
+                                        <label class="col-form-label" for="job_last_run" style="color:white">x</label>
+                                    </span>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <record id="integration_tree_view" model="ir.ui.view">
+            <field name="name">ihub.integration.view</field>
+            <field name="model">ihub.integration</field>
+            <field name="arch" type="xml">
+                <tree string="Integrations" create="false">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+        <record id="integration_form_view" model="ir.ui.view">
+            <field name="name">ihub.integration.form.view</field>
+            <field name="model">ihub.integration</field>
+            <field name="arch" type="xml">
+                <form string="Integration" create="false">
+                    <header>
+                        <field name="status_name" invisible="True"/>
+                        <button name="start" type="object" string="start" class="oe_highlight" attrs="{'invisible': [['status_name', 'in', ['Running', 'Failed']]]}"/>
+                        <button name="start" type="object" string="restart" class="oe_highlight" attrs="{'invisible': [['status_name', '!=', 'Failed']]}"/>
+                        <button name="stop" type="object" string="stop" class="oe_highlight" attrs="{'invisible': [['status_name', '!=', 'Running']]}"/>
+                        <button name="open_settings" type="object" string="integration settings" groups="ihub.ihub_admin"/>
+                        <button name="open_logs" type="object" string="Events"/>
+                        <field name="status" widget="statusbar" options="{'clickable': 0}"
+                               statusbar_visible="Created,Stopped,Running,Failed"/>
+                    </header>
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="cron_id" readonly="True"/>
+                        </group>
+                        <field name="sub_is_job" invisible="True"/>
+                        <field name="sub_is_multi_company_compatible" invisible="True"/>
+                        <field name="sub_is_manually_runnable" invisible="True"/>
+                        <group attrs="{'invisible': [['sub_is_job', '=', False]]}">
+                            <label for="job_next_run" attrs="{'readonly': [['status_name', '==', 'Running']]}" string="Next interval"/>
+                            <div class="o_row">
+                                <field name="job_last_run" attrs="{'readonly': [['status_name', '==', 'Running']]}" class="oe_inline"/>
+                                to
+                                <field name="job_next_run" attrs="{'readonly': [['status_name', '==', 'Running']]}" class="oe_inline"/>
+                            </div>
+                            <field name="cron_next_run"/>
+                            <label for="job_interval_scalar" string="Execute every"/>
+                            <div>
+                                <field name="job_interval_scalar" attrs="{'readonly': [['status_name', '==', 'Running']]}" class="oe_inline"/>
+                                <label for="job_interval_unit" attrs="{'readonly': [['status_name', '==', 'Running']]}" string=" "/>
+                                <field name="job_interval_unit" attrs="{'readonly': [['status_name', '==', 'Running']]}" class="oe_inline"/>
+                            </div>
+                        </group>
+                        <group attrs="{'invisible': [['sub_is_multi_company_compatible', '=', True]]}">
+                            <field name="company_id"/>
+                        </group>
+                        <button name="%(manual_wizard_action)d" string="Run Manually" type="action" attrs="{'invisible': [['sub_is_manually_runnable', '=', False]]}"/>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="integration_tree_window" model="ir.actions.act_window" >
+            <field name="name">Integrations</field>
+            <field name="res_model">ihub.integration</field>
+            <field name="view_mode">kanban,form</field>
+            <field name="view_id" ref="integration_kanban_view"/>
+        </record>
+        <menuitem name="Integrations" sequence="1" id="menu_integrations" parent="menu_root" groups="base.user_admin"/>
+        <menuitem name="Integrations" sequence="1" id="menu_integrations_board" parent="menu_integrations" action="integration_tree_window"/>
+    </data>
+</odoo>

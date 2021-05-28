@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="manual_wizard_form" model="ir.ui.view">
+        <field name="name">ihub.manual.wizard.form</field>
+        <field name="model">ihub.manual_wizard</field>
+        <field name="arch" type="xml">
+            <form string="Manual Wizard">
+                <field name="has_time_period" invisible="1"/>
+                <group attrs="{'invisible': [['has_time_period', '=', False]]}">
+                    <field name="from_date" string="from" widget="daterange" options='{"related_end_date": "to_date"}'/>
+                    <field name="to_date" string="to" widget="daterange" options='{"related_start_date": "from_date"}'/>
+                </group>
+                <div attrs="{'invisible': [['has_time_period', '=', True]]}">
+                    <i style="color:grey">You can't select a time period for this integration.</i>
+                </div>
+                <footer>
+                    <button name="run" type="object" string="Run" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="manual_wizard_action" model="ir.actions.act_window">
+        <field name="name">Run Manually</field>
+        <field name="res_model">ihub.manual_wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="manual_wizard_form"/>
+        <field name="target">new</field>
+        <field name="groups_id" eval="[(4, ref('ihub.ihub_admin'))]"/>
+    </record>
+</odoo>

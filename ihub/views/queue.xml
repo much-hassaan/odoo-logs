@@ -1,0 +1,45 @@
+<odoo>
+    <data>
+        <record id="integration_job_view" model="ir.ui.view">
+            <field name="name">ihub.job.view</field>
+            <field name="model">ihub.job</field>
+            <field name="arch" type="xml">
+                <tree string="Jobs" create="false" default_order="to_date desc" edit="false"
+                      decoration-info="state=='pending'"
+                      decoration-success="state=='running'"
+                      decoration-muted="state=='done'"
+                      decoration-danger="state=='failed'"
+                >
+                    <field name="name"/>
+                    <field name="state"/>
+                    <field name="to_date" string="Execution Date/Time Frame End"/>
+                    <field name="from_date" string="Time Frame Start"/>
+                </tree>
+            </field>
+        </record>
+        <record id="integration_job_form" model="ir.ui.view">
+            <field name="name">ihub.job.form</field>
+            <field name="model">ihub.job</field>
+            <field name="arch" type="xml">
+                <form string="Jobs" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="state"/>
+                            <field name="integration_id"/>
+                            <field name="function"/>
+                            <field name="to_date" string="Execution Date/Time Frame End"/>
+                            <field name="from_date" string="Time Frame Start"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        <record id="job_view" model="ir.actions.act_window" >
+            <field name="name">Queued Jobs</field>
+            <field name="res_model">ihub.job</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Jobs" id="menu_jobs" parent="menu_root" action="job_view"/>
+    </data>
+</odoo>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="0">
+    <record id="ihub.state_created" model="ihub.state">
+        <field name="name">Created</field>
+    </record>
+    <record id="ihub.state_stopped" model="ihub.state">
+        <field name="name">Stopped</field>
+    </record>
+    <record id="ihub.state_running" model="ihub.state">
+        <field name="name">Running</field>
+    </record>
+    <record id="ihub.state_failed" model="ihub.state">
+        <field name="name">Failed</field>
+    </record>
+</odoo>

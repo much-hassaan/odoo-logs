@@ -1,0 +1,40 @@
+<odoo>
+    <data>
+        <record id="watcher_view" model="ir.ui.view">
+            <field name="name">ihub_cronwatch.watcher.view</field>
+            <field name="model">ihub_cronwatch.watcher</field>
+            <field name="arch" type="xml">
+                <tree string="Jobs" edit="false"
+                      decoration-success="cron_active==True"
+                      decoration-danger="cron_active==False"
+                >
+                    <field name="cron"/>
+                    <field name="cron_active"/>
+                </tree>
+            </field>
+        </record>
+        <record id="ihub_cronwatch_watcher_form" model="ir.ui.view">
+            <field name="name">ihub_cronwatch.watcher.form</field>
+            <field name="model">ihub_cronwatch.watcher</field>
+            <field name="arch" type="xml">
+                <form string="Jobs" create="false" edit="false">
+                    <sheet>
+                        <group>
+                            <field name="cron"/>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        <record id="cronwatcher_view" model="ir.actions.act_window" >
+            <field name="name">Watched Cron Jobs</field>
+            <field name="res_model">ihub_cronwatch.watcher</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem name="Cron Watcher" id="menu_cronwatcher" parent="ihub.menu_root" action="cronwatcher_view"/>
+    </data>
+</odoo>

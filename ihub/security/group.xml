@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="0">
+		<record model="ir.module.category" id="module_category_ihub">
+            <field name="name">Integration Hub</field>
+            <field name="sequence">1000</field>
+        </record>
+        <record model="res.groups" id="ihub_user">
+            <field name="name">User</field>
+            <field name="category_id" ref="module_category_ihub"/>
+        </record>
+        <record model="res.groups" id="ihub_admin">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="module_category_ihub"/>
+	        <field name="implied_ids" eval="[(4, ref('ihub_user'))]"/>
+			<field name="users" eval="[(4, ref('base.user_root')),(4, ref('base.user_admin'))]"/>
+        </record>
+	</data>
+</odoo>

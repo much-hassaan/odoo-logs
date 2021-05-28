@@ -1,0 +1,20 @@
+<odoo>
+    <data>
+        <record id="integration_demo_view" model="ir.ui.view">
+            <field name="name">ihub.integration.demo.form</field>
+            <field name="model">ihub.integration.demo</field>
+            <field name="arch" type="xml">
+                <form string="Integration Demo">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="fail_run"/>
+                            <field name="a_custom_fields"/>
+                        </group>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse ac porta erat, sit amet dignissim turpis. Aenean ultrices diam eget ex fermentum, ac fringilla urna pulvinar. Phasellus blandit mattis massa eu tristique. Morbi eros ante, ornare a porttitor rutrum, suscipit a elit. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut bibendum turpis ac tortor sagittis placerat. Nullam in tortor pretium, tristique tellus nec, eleifend mauris. Donec eleifend tincidunt ullamcorper. Praesent vel mollis mauris. Phasellus egestas vitae elit et volutpat. Integer leo sapien, sollicitudin vitae auctor eget, laoreet quis dui. Praesent convallis varius aliquam.
+                    </sheet>
+                </form>
+            </field>
+        </record>
+    </data>
+</odoo>

@@ -1,0 +1,13 @@
+<odoo>
+    <data>
+        <!-- Top menu item -->
+        <record id="menu_root" model="ir.ui.menu">
+            <field name="action" eval="False"/>
+            <field name="active" eval="True"/>
+            <field name="name">Integration Hub</field>
+            <field name="sequence">2</field>
+            <field name="web_icon">fa fa-share-alt,#F25E4F,#001726</field>
+            <field name="groups_id" eval="[(4, ref('ihub.ihub_user'))]"/>
+        </record>
+    </data>
+</odoo>

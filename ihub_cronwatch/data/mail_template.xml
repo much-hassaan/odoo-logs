@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="cronwatch_mail_template" model="mail.template">
+            <field name="name">IHub: Failure notification</field>
+			<field name="model_id" ref="model_ihub_cronwatch_watcher"/>
+			<field name="email_from">${(user.email_formatted) | safe}</field>
+			<field name="subject">Cronwatch: ${object.cron.name if object.cron else "[deleted]"} deactivated</field>
+			<field name="auto_delete">False</field>
+			<field name="body_html" type="html">
+				<b style="font-weight:bolder">
+					<font style="color:rgb(255, 0, 0)">
+						Cron job ${object.cron.name if object.cron else "[deleted]"} no longer active.
+					</font>
+				</b>
+			</field>
+        </record>
+    </data>
+</odoo>

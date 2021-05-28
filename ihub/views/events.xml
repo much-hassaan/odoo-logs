@@ -1,0 +1,74 @@
+<odoo>
+    <data>
+        <record id="event_view" model="ir.ui.view">
+            <field name="name">ihub.event.view</field>
+            <field name="model">ihub.event</field>
+            <field name="arch" type="xml">
+                <tree string="Event List"
+                      decoration-info="level=='info'"
+                      decoration-warning="level=='warning'"
+                      decoration-danger="level=='error'"
+                      default_order="create_date desc, id asc"
+                >
+                    <field name="integration_id"/>
+                    <field name="summary"/>
+                    <field name="related"/>
+                    <field name="level"/>
+                    <field name="create_date" string="Date"/>
+                </tree>
+            </field>
+        </record>
+        <record id="event_view_form" model="ir.ui.view">
+            <field name="name">ihub.event.view.form</field>
+            <field name="model">ihub.event</field>
+            <field name="arch" type="xml">
+                <form string="Event" edit="false" create="false">
+                    <sheet>
+                        <group>
+                            <field name="integration_id"/>
+                            <field name="level"
+                                    decoration-info="level=='info'"
+                                    decoration-warning="level=='warning'"
+                                    decoration-danger="level=='error'"
+                            />
+                            <field name="summary"/>
+                            <field name="details"/>
+                            <field name="related"/>
+                        </group>
+                    </sheet>
+<!--                    <div class="oe_chatter">-->
+<!--                        <field name="message_follower_ids" widget="mail_followers"/>-->
+<!--                        <field name="activity_ids" widget="mail_activity"/>-->
+<!--                        <field name="message_ids" widget="mail_thread"/>-->
+<!--                    </div>-->
+                </form>
+            </field>
+        </record>
+        <menuitem name="Events" id="menu_events" parent="menu_root"/>
+        <record id="event_all_tree_window" model="ir.actions.act_window" >
+            <field name="name">All Events</field>
+            <field name="res_model">ihub.event</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="event_view"/>
+        </record>
+        <menuitem name="All" id="menu_events_all" parent="menu_events" action="event_all_tree_window"/>
+
+        <record id="event_warning_tree_window" model="ir.actions.act_window" >
+            <field name="name">Warnings</field>
+            <field name="res_model">ihub.event</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="event_view"/>
+            <field name="domain">[('level', '=', 'warning')]</field>
+        </record>
+        <menuitem name="Warnings" id="menu_events_warnings" parent="menu_events" action="event_warning_tree_window"/>
+
+        <record id="event_errors_tree_window" model="ir.actions.act_window" >
+            <field name="name">Errors</field>
+            <field name="res_model">ihub.event</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="event_view"/>
+            <field name="domain">[('level', '=', 'error')]</field>
+        </record>
+        <menuitem name="Errors" id="menu_events_errors" parent="menu_events" action="event_errors_tree_window"/>
+    </data>
+</odoo>

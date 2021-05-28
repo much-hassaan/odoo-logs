@@ -1,0 +1,13 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ihub_event_user,ihub.event,model_ihub_event,ihub.ihub_user,1,0,0,0
+ihub_event_admin,ihub.event,model_ihub_event,ihub.ihub_admin,1,1,1,1
+ihub_abstract_integration_user,ihub.abstract_integration,model_ihub_abstract_integration,ihub.ihub_user,1,0,0,0
+ihub_abstract_integration_admin,ihub.abstract_integration,model_ihub_abstract_integration,ihub.ihub_admin,1,1,1,1
+ihub_integration_admin,ihub.integration,model_ihub_integration,ihub.ihub_admin,1,1,1,1
+ihub_integration_user,ihub.integration,model_ihub_integration,ihub.ihub_user,1,0,0,0
+ihub_integration_demo,ihub.integration.demo,model_ihub_integration_demo,ihub.ihub_admin,1,1,1,1
+ihub_job_user,ihub.job,model_ihub_job,ihub.ihub_user,1,0,0,0
+ihub_job_admin,ihub.job,model_ihub_job,ihub.ihub_admin,1,1,1,1
+ihub_state,ihub.state,model_ihub_state,ihub.ihub_user,1,1,1,1
+ihub_manual_wizard,ihub.manual_wizard,model_ihub_manual_wizard,ihub.ihub_user,1,1,1,1
+ihub_integration_wizard,ihub_integration_wizard,model_ihub_integration_wizard,ihub.ihub_admin,1,1,1,1

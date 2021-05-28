@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+ihub_cronwatch_user,ihub_cronwatch.watcher,model_ihub_cronwatch_watcher,ihub.ihub_user,1,0,0,0
+ihub_cronwatch_admin,ihub_cronwatch.watcher,model_ihub_cronwatch_watcher,ihub.ihub_admin,1,1,1,1

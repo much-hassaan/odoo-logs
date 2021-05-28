@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="integration_wizard_view_form" model="ir.ui.view">
+        <field name="name">ihub.integration.wizard.form</field>
+        <field name="model">ihub.integration_wizard</field>
+        <field name="arch" type="xml">
+            <form string="Select integration">
+                <sheet>
+                    <group>
+                        <field name="model" string="Integration"/>
+                        <field name="name"/>
+                    </group>
+                    <field name="description" widget="html" readonly="True"/>
+                </sheet>
+                <footer>
+                    <button string='Create' name="create_integration" type="object" class="oe_highlight"/>
+                    <button string="Cancel" class="oe_link" special="cancel"/>
+                </footer>
+           </form>
+        </field>
+    </record>
+
+    <record id="integration_wizard_action" model="ir.actions.act_window">
+        <field name="name">Select integration</field>
+        <field name="res_model">ihub.integration_wizard</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="integration_wizard_view_form"/>
+        <field name="target">new</field>
+    </record>
+    <menuitem name="Add integration" sequence="2" id="menu_add_integrations" parent="menu_integrations" action="integration_wizard_action" groups="ihub.ihub_admin"/>
+</odoo>
