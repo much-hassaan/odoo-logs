@@ -29,17 +29,11 @@ class POSTController(http.Controller):
         extension = ".txt"
 
         file_name = current_date_and_time_string + extension
-        file = open(file_name, 'w')
+        file = open(file_name, 'wb')
 
         file.write(data) # Write Data
 
-
-        datas = base64.encodebytes(file)
-        attachment = self.env['ir.attachment'].create({
-            'name': file_name,
-            'datas': datas,
-            'datas_fname': file_name
-        })
+        attachment = request.env['ir.attachment'].sudo().create({'name': file_name,'datas': base64.b64encode(data)})
 
         create_event_ihub(
             summary=f"{file_name}",
